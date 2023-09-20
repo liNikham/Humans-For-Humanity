@@ -1,5 +1,6 @@
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 html, body {
@@ -136,6 +137,8 @@ ul, li {
   top: 0;
   right: 0;
   bottom: 0;
+  scroll-behavior: smooth
+  
 }
 .slider__text {
   position: absolute;
@@ -209,7 +212,7 @@ ul, li {
 }
 .slide__img {
   position: relative;
-  width: 25vw;
+  width: 40vw;
   height: 70vh;
   padding: 0;
   margin: 0;
@@ -231,4 +234,36 @@ ul, li {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.about {
+  padding: 4rem 0;
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
+.about h3 {
+  font-size: 3em;
+  margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
+.about p {
+  font-size: 1.5em;
+  margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
+/* Style for the About Us content */
+.about-content {
+  max-width: 800px; 
+  margin: 0 auto;
+  color: #fff;
+  scroll-behavior: smooth;
+  transform-origin: top
+}
+
+
+
+.about {
+  z-index: 100; /* Ensure a higher z-index value for the "About Us" section */
 }
