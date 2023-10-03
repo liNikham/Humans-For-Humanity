@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Glassmorphic Sign in Form</title>
+  <link rel="stylesheet" href="./signin.css">
+
+  <script>
+    function validateForm() {
+      var name = document.querySelector('input[name="name"]').value;
+      var email = document.querySelector('input[name="email"]').value;
+      var password = document.querySelector('input[name="password"]').value;
+      var confirmPassword = document.querySelector('input[name="confirm_password"]').value;
+
+      // Simple email validation (you can use a more complex regular expression)
+      var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+      if (name.trim() === "") {
+        alert("Please enter your name.");
+        return false;
+      }
+
+      if (!emailPattern.test(email)) {
+        alert("Invalid email address");
+        return false;
+      }
+
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters long");
+        return false;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return false;
+      }
+
+      // If all validations pass, you can submit the form
+      return true;
+    }
+  </script>
+
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<div class="container">
+  <form onsubmit="return validateForm()">
+    <p>Welcome</p>
+    <input type="text" name="name" placeholder="Name" required><br>
+    <input type="email" name="email" id="email" class="cm-input" placeholder="Email" required><br>
+    <input type="password" name="password" placeholder="Password" minlength="6" required><br>
+    <input type="password" name="confirm_password" placeholder="Confirm Password" minlength="6" required><br>
+    <input type="submit" value="Sign in"><br>
+    <a href="#">Forgot Password?</a>
+  </form>
+
+  <div class="drops">
+    <div class="drop drop-1"></div>
+    <div class="drop drop-2"></div>
+    <div class="drop drop-3"></div>
+    <div class="drop drop-4"></div>
+    <div class="drop drop-5"></div>
+  </div>
+</div>
+
+</body>
+</html>
