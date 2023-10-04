@@ -50,6 +50,7 @@ class Slider {
       gl_FragColor = mix(_texture1, _texture2, dispPower);
     }
     `;
+    
 
     this.el = document.querySelector('.js-slider');
     this.inner = this.el.querySelector('.js-slider__inner');
@@ -61,23 +62,28 @@ class Slider {
     this.clock = null;
     this.camera = null;
 
+    
     this.images = [
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/58281/bg1.jpg',
-    'https://images.unsplash.com/photo-1619043437901-7d8c4a693a40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/58281/bg3.jpg'];
-
+      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/58281/bg1.jpg',
+      'https://images.unsplash.com/photo-1619043437901-7d8c4a693a40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80',
+      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/58281/bg3.jpg',
+      'about-us-background.jpg' 
+    ];
+    
 
     this.data = {
       current: 0,
       next: 1,
       total: this.images.length - 1,
-      delta: 0 };
+      delta: 0 
+    };
 
 
     this.state = {
       animating: false,
       text: false,
-      initial: true };
+      initial: true,
+    };
 
 
     this.textures = null;
@@ -192,7 +198,7 @@ class Slider {
   }
 
   transitionNext() {
-    TweenMax.to(this.mat.uniforms.dispPower, 2.5, {
+    TweenMax.to(this.mat.uniforms.dispPower, 1.5, {
       value: 1,
       ease: Expo.easeInOut,
       onUpdate: this.render,
@@ -313,11 +319,16 @@ class Slider {
 
   nextSlide() {
     if (this.state.animating) return;
-
+  
     this.state.animating = true;
-
+  
+   
+    // Show the current slide
+    this.slides[this.data.current].style.display = 'block';
+  
+    
     this.transitionNext();
-
+  
     this.data.current = this.data.current === this.data.total ? 0 : this.data.current + 1;
     this.data.next = this.data.current === this.data.total ? 0 : this.data.current + 1;
   }
@@ -328,12 +339,72 @@ class Slider {
   }
 
   listeners() {
+    const aboutUsLink = document.querySelector('a[href="#about_us"]');
+    aboutUsLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.goToAboutUsSlider();
+    });
+  
+
     window.addEventListener('wheel', this.nextSlide, { passive: true });
+
+   
   }
 
   render() {
     this.renderer.render(this.scene, this.camera);
   }
+  
+  
+  goToAboutUsSlider() {
+    // De-highlight the current bullet
+    const currentBulletTxt = this.bullets[this.data.current].querySelectorAll('.js-slider-bullet__text');
+    TweenMax.to(currentBulletTxt, 1.5, {
+      alpha: 0.25,
+      ease: Linear.easeNone
+    });
+    const currentBulletLine = this.bullets[this.data.current].querySelectorAll('.js-slider-bullet__line');
+    TweenMax.to(currentBulletLine, 1.5, {
+      scaleX: 0,
+      ease: Expo.easeInOut
+    });
+   
+    // Hide the current slide
+    const currentSlide = this.slides[this.data.current];
+  TweenMax.to(currentSlide, 1.8, {
+    autoAlpha: 0,
+    ease: Expo.easeInOut,
+    onComplete: () => {
+      currentSlide.style.display = 'none';
+    }
+  });
+
+    
+    this.data.current = 2; // Set the index of the "About Us" slider to 2
+    this.data.next = this.data.current === this.data.total ? 0 : this.data.current + 1;
+  
+    // Update the textures
+    this.changeTexture();
+  
+    // Highlight the "About Us" bullet
+    const nextBulletTxt = this.bullets[this.data.current].querySelectorAll('.js-slider-bullet__text');
+    TweenMax.to(nextBulletTxt, 1.5, {
+      alpha: 1,
+      ease: Linear.easeNone
+    });
+    const nextBulletLine = this.bullets[this.data.current].querySelectorAll('.js-slider-bullet__line');
+    TweenMax.to(nextBulletLine, 1.5, {
+      scaleX: 1,
+      ease: Expo.easeInOut
+    });
+  
+    // Start the transition to the "About Us" slide
+    this.transitionNext();
+
+    this.data.current = 3;
+    this.data.next = 0;
+  }
+
 
   init() {
     this.setup();
@@ -346,16 +417,9 @@ class Slider {
   }}
 
 
-// Toggle active link
-const links = document.querySelectorAll('.js-nav a');
 
-links.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    links.forEach(other => other.classList.remove('is-active'));
-    link.classList.add('is-active');
-  });
-});
+
 
 // Init classes
 const slider = new Slider();
+

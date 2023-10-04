@@ -9,6 +9,7 @@
 }
 
 html {
+  background-color: #f7f7f7;
   background-image: linear-gradient(180deg, #1a1919 0%, #202C39 97%);
 }
 
@@ -27,11 +28,27 @@ body {
 }
 
 h1 {
-    font-size: 35px;
+    font-size: 46px;
     font-weight: 600;
+    text-shadow: 3.5px 3.5px 3px rgba(190, 181, 181, 0.3);
     text-align: center;
-    color:#ffffff
+    color:#d4d4d4;
+    margin-bottom: 40px;
+    animation: fadeInUp 1s ease; /* Create a fadeInUp animation */
+    
 }
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 img {
   height: auto;
@@ -44,7 +61,7 @@ img {
   padding: 0.8rem;
   font-size: 14px;
   text-transform: uppercase;
-  border-radius: 4px;
+  border-radius: 7px;
   font-weight: 400;
   display: block;
   width: 100%;
@@ -55,6 +72,8 @@ img {
 
 .btn:hover {
   background-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 16px 0 rgba(163, 71, 139, 0.24),0 17px 50px 0 rgba(205, 177, 199, 0.19);
+  border: 1px solid #fdfdfd;
 }
 
 .cards {
@@ -62,7 +81,9 @@ img {
   flex-wrap: wrap;
   list-style: none;
   margin: 0;
+  margin-bottom: 2rem;
   padding: 0;
+  
 }
 
 .cards_item {
@@ -89,20 +110,20 @@ img {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height:   635px;
+  justify-content: center;
 }
 
 .card_content {
   padding: 1rem;
   background-color: #861657;
   background-image: linear-gradient(315deg, #861657 0%, #aa4465 74%);
-  
-
-  
 }
 
 .card_title {
   color: #ffffff;
-  font-size: 1.1rem;
+  text-shadow: 3px 3px 2px rgba(190, 181, 181, 0.3);
+  font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: capitalize;
@@ -115,6 +136,10 @@ img {
   line-height: 1.5;
   margin-bottom: 1.25rem;    
   font-weight: 400;
+}
+.card:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
 }
 .made_by{
   font-weight: 400;
